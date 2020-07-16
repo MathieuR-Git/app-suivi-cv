@@ -9,7 +9,7 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 import "bootstrap/dist/css/bootstrap.css";
 Vue.use(BootstrapVue, Bootstrap);
 //Vue.use(Bootstrap);
-Vue.config.productionTip = false;
+Vue.config.productionTip = true;
 
 new Vue({
   router,

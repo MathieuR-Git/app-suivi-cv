@@ -15,7 +15,7 @@
       <router-link to="/relance" class="item-link" v-if="relance">
         <span class="fa-layers fa-fw">
           <i class="fas fa-bell"></i>
-          <span class="fa-layers-counter " style="background:Tomato">
+          <span class="fa-layers-counter" style="background:Tomato">
             {{ relance }}</span
           >
         </span>
@@ -48,6 +48,7 @@ aside {
   height: 100vh;
 }
 h2 {
+  text-align: center;
   margin-top: 2vh;
   color: white;
 }
