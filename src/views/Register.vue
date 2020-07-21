@@ -22,9 +22,6 @@
                 placeholder="Votre adresse email"
                 v-model="email"
               />
-              <small v-if="errors.email" class="text-danger">{{
-                errors.email
-              }}</small>
             </div>
             <div class="input-group">
               <input
@@ -78,34 +75,10 @@ export default {
   data: () => ({
     name: "",
     email: "",
-    password1: "",
-    password2: "",
+    password: "",
+    password_confirmation: "",
   }),
   methods: {
-    // test: function(e) {
-    //   e.preventDefault;
-
-    //   if (
-    //     this.name.length > 0 &&
-    //     this.email.length > 0 &&
-    //     this.password1.length > 0 &&
-    //     this.password2.length > 0 &&
-    //     this.password1 === this.password2
-    //   ) {
-    //     let data = {
-    //       name: this.name,
-    //       email: this.email,
-    //       password1: this.password1,
-    //       password2: this.password2,
-    //       errors: this.errors,
-    //     };
-
-    //     console.log(data);
-    //     this.$router.push("/jobs");
-    //   } else {
-    //     console.log(this.errors);
-    //   }
-    // },
     register: function(e) {
       e.preventDefault();
       let data = {

@@ -14,7 +14,7 @@ export default new Vuex.Store({
     status: "",
     lastTimeLogged: "",
     candidatures: [],
-    relances: [],
+    relances: ["a"],
   },
   mutations: {
     auth_request(state) {
@@ -124,6 +124,7 @@ export default new Vuex.Store({
   getters: {
     isLoggedIn: (state) => !!state.token,
     authStatus: (state) => state.status,
+    user: (state) => state.user,
   },
   modules: {},
 });

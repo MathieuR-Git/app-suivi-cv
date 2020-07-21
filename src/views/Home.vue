@@ -26,12 +26,8 @@ export default {
   },
   created: function() {
     if (!this.$store.state.tokenAlreadyChecked) {
-      console.log(this.$store.state.tokenAlreadyChecked);
       this.$store.dispatch("checkToken");
-    } else {
-      console.log("false");
     }
-    console.log(this.$store.state);
   },
 };
 </script>

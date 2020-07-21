@@ -21,7 +21,6 @@
         </span>
         Mes relances
       </router-link>
-      <router-link v-else></router-link>
     </div>
   </aside>
 </template>

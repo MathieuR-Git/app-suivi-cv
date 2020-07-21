@@ -14,14 +14,14 @@
         :click="info"
       >
         <template v-slot:cell(poste)="row" class="mr-1">
-          <span @click="info(row.item, row.index, $event.target)">{{
-            row.value
-          }}</span>
+          <p v-on:click="info(row.item, $event.target)" class="td">
+            {{ row.value }}
+          </p>
         </template>
         <template v-slot:cell(url)="row" class="mr-1">
-          <span @click="redirect(row.item, $event.target)">{{
-            row.value
-          }}</span>
+          <p v-on:click="redirect(row.item, $event.target)" class="td">
+            {{ row.value }}
+          </p>
         </template>
       </b-table>
       <b-modal
@@ -29,10 +29,8 @@
         :title="infoModal.title"
         ok-title="Confirmer"
         cancel-title="Annuler"
-        @hide="resetInfoModal"
         @ok="test"
         @cancel="test"
-        centered="true"
       >
         <pre v-html="infoModal.content"></pre>
         <!-- <pre >{{ infoModal.content }}</pre> -->
@@ -160,9 +158,10 @@ export default {
     },
   }),
   methods: {
-    info(item, index, button) {
+    info(item) {
+      // info(item, index, button) {
       this.$nextTick(function() {
-        console.log(item.id, item.url, index, button.innerText);
+        console.log(item.id, item.url);
         //window.open("https://www.google.fr", "_targer");
       });
     },
@@ -184,7 +183,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 section {
   margin-left: 3vw;
   margin-right: 1vw;
@@ -196,11 +195,25 @@ hr.solid {
   height: 0;
   margin-top: 0.5rem 0;
   overflow: hidden;
-  border-top: 1px solid #01212C;
+  border-top: 1px solid #01212c;
 }
 tr:hover {
   cursor: pointer;
 }
+.table td:hover {
+  cursor: pointer !important;
+}
+
+.td {
+  width: 100%;
+}
+td:hover {
+  cursor: pointer !important;
+}
+.td:hover {
+  cursor: pointer !important;
+}
+
 .modal-dialog {
   min-width: 800px;
 }

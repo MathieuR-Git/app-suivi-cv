@@ -20,7 +20,7 @@
             ><i class="far fa-bell-slash"></i>Aucune relance</a
           >
           <a class="nav-item off" @click="logout"
-            ><i class="fas fa-power-off"></i> Me déconnecter</a
+            ><i class="fas fa-power-off off"></i> Me déconnecter</a
           >
         </ul>
       </div>
