@@ -15,6 +15,7 @@ export default new Vuex.Store({
     lastTimeLogged: "",
     candidatures: [],
     relances: ["a"],
+    error: {},
   },
   mutations: {
     auth_request(state) {
@@ -23,14 +24,14 @@ export default new Vuex.Store({
     auth_success(state, token) {
       state.status = "success";
       state.token = token;
-      // state.user = user; //devrait y mettre les données user que je récupère
       state.tokenAlreadyChecked = true;
     },
     user_values(state, user) {
       state.user = user;
     },
-    auth_error(state) {
+    auth_error(state, error) {
       state.status = "error";
+      state.error = error;
     },
     logout(state) {
       state.status = "";
@@ -65,12 +66,6 @@ export default new Vuex.Store({
             delete user.nom;
             nom.replace(/%20/g, " ");
             user.nom = nom;
-            // user.nom = unescape(user.nom);
-            // let test = {
-            //   id: user.id,
-            //   nom: nom,
-            //   email: user.email,
-            // };
             Cookies.set("token", token);
 
             axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -119,7 +114,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         commit("auth_request");
         let token = Cookies.get("token");
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
         axios
           .post(process.env.VUE_APP_CHECK_TOKEN)
           .then((res) => {
@@ -142,12 +137,17 @@ export default new Vuex.Store({
         DEFINE HEADER
          */
         let token = Cookies.get("token");
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
+        // axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
         if (dataChanged.nom) {
           commit("user_values_change_name", dataChanged.nom);
           axios
-            .post(process.env.VUE_APP_EDIT_USER + dataChanged.id, dataChanged)
+            .post(process.env.VUE_APP_EDIT_USER + dataChanged.id, dataChanged, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
             .then((res) => {
               commit("user_values_change_success", res);
               resolve(res);
@@ -159,7 +159,11 @@ export default new Vuex.Store({
         } else if (dataChanged.email) {
           commit("user_values_change_email", dataChanged.email);
           axios
-            .post(process.env.VUE_APP_EDIT_USER + dataChanged.id, dataChanged)
+            .post(process.env.VUE_APP_EDIT_USER + dataChanged.id, dataChanged, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
             .then((res) => {
               commit("user_values_change_success", res);
               resolve(res);
@@ -176,6 +180,7 @@ export default new Vuex.Store({
     isLoggedIn: (state) => !!state.token,
     authStatus: (state) => state.status,
     user: (state) => state.user,
+    error: (state) => state.error,
   },
   modules: {},
 });

@@ -1,12 +1,12 @@
 <template>
   <div id="register">
-    <h1>FindJob</h1>
+    <h1 class="text-center">FindJob</h1>
     <div class="wrapper wrapper--w960">
       <div class="card card-2">
         <div class="card-heading"></div>
         <div class="card-body">
-          <h2 class="title">S'inscrire</h2>
-          <form @submit.prevent="test">
+          <h2 class="title text-center">S'inscrire</h2>
+          <form @submit.prevent="register">
             <div class="input-group">
               <input
                 class="input--style-2"
@@ -29,6 +29,7 @@
                 type="password"
                 placeholder="Votre mot de passe"
                 v-model="password"
+                autocomplete="new-password"
               />
             </div>
             <div class="input-group">
@@ -37,6 +38,7 @@
                 type="password"
                 placeholder="Confirmer votre mot de passe"
                 v-model="password_confirmation"
+                autocomplete="new-password"
               />
               <span
                 class="text-danger"
@@ -44,7 +46,7 @@
                 >Mots de passe différents !
               </span>
             </div>
-            <div class="p-t-30">
+            <div class="p-t-30 col-12 text-center">
               <button
                 class="btn btn-valid"
                 v-if="
@@ -61,7 +63,9 @@
                 Valider
               </button>
             </div>
-            <span>Me connecter <router-link to="/login">ici</router-link></span>
+            <p class="text-center">
+              Me connecter <router-link to="/login">ici</router-link>
+            </p>
           </form>
         </div>
       </div>
@@ -89,8 +93,21 @@ export default {
       };
       this.$store
         .dispatch("register", data)
-        .then(() => this.$router.push("/"))
+        .then(() => this.$router.push("/jobs"))
         .catch((err) => console.error(err));
+    },
+  },
+  computed: {
+    getUser() {
+      return this.$store.getters.error;
+    },
+  },
+  watch: {
+    getUser: {
+      deep: true,
+      handler: function(error) {
+        console.log(error);
+      },
     },
   },
 };
@@ -311,7 +328,10 @@ input {
   color: white;
   font-style: italic;
 }
-span {
+p.text-center {
   font-size: 12px;
+}
+p.text-center a {
+  padding: 0 !important;
 }
 </style>

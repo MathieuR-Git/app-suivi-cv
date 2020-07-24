@@ -153,24 +153,26 @@ export default {
     edit(payload) {
       if (typeof payload.inputEmail === "boolean") {
         this.inputEmail = payload.inputEmail;
-        console.log("value inputEmail : ", this.inputEmail);
         if (this.inputEmail === false) {
-          this.$nextTick(() => this.$refs.email.focus());
+          let length = this.$refs.email.value.length;
+          this.$nextTick(
+            () => this.$refs.email.focus(),
+            this.$refs.email.setSelectionRange(length, length)
+          );
         } else {
-          console.log("inputEmail true");
-
           if (this.user.email === this.email) {
             this.saveEmail = false;
           }
         }
       } else if (typeof payload.inputNom === "boolean") {
         this.inputNom = payload.inputNom;
-        console.log("value inputNom : ", this.inputEmail);
         if (this.inputNom === false) {
-          this.$nextTick(() => this.$refs.nom.focus());
+          let length = this.$refs.nom.value.length;
+          this.$nextTick(
+            () => this.$refs.nom.focus(),
+            this.$refs.nom.setSelectionRange(length, length)
+          );
         } else {
-          console.log("inputNom true");
-
           if (this.user.nom === this.nom) {
             this.saveNom = false;
           }
@@ -179,11 +181,29 @@ export default {
     },
     save: function(event) {
       event.preventDefault();
-      console.log(event.target.value);
+      switch (event.target.value) {
+        case "nom": {
+          let data = (data = { id: this.user.id, nom: this.nom });
+          this.$store.dispatch("editUser", data);
+          this.inputNom = true;
+          this.saveNom = false;
+          this.nom = this.user.nom;
+          break;
+        }
+        case "email": {
+          let data = (data = { id: this.user.id, email: this.email });
+          this.$store.dispatch("editUser", data);
+          this.email = this.user.email;
+          this.inputEmail = true;
+          this.saveEmail = false;
+          break;
+        }
+        default:
+          break;
+      }
     },
     cancel: function(event) {
       event.preventDefault();
-      console.log(event.target.value);
       switch (event.target.value) {
         case "nom": {
           this.inputNom = true;

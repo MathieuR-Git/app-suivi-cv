@@ -26,6 +26,7 @@ export default {
   },
   beforeCreate: function() {
     if (!this.$store.state.tokenAlreadyChecked) {
+      console.log("a");
       this.$store.dispatch("checkToken");
     }
   },

@@ -5,7 +5,7 @@
       <div class="card card-2">
         <div class="card-heading"></div>
         <div class="card-body">
-          <h2 class="title">Se connecter</h2>
+          <h2 class="title text-center">Se connecter</h2>
           <form @submit="login">
             <div class="input-group">
               <input
@@ -26,7 +26,7 @@
               />
             </div>
 
-            <div class="p-t-30">
+            <div class="p-t-30 text-center">
               <button
                 class="btn btn-valid"
                 v-if="email.length > 1 && password.length > 1"
@@ -37,10 +37,9 @@
                 Valider
               </button>
             </div>
-            <span
-              >Créer un compte
-              <router-link to="/register">ici</router-link></span
-            >
+            <p class="text-center">
+              Créer un compte <router-link to="/register">ici</router-link>
+            </p>
           </form>
         </div>
       </div>
@@ -284,7 +283,12 @@ input {
   color: white;
   font-style: italic;
 }
-span {
+p.text-center {
   font-size: 12px;
+  margin-left: auto;
+  margin-right: auto;
+}
+p.text-center a {
+  padding: 0 !important;
 }
 </style>
