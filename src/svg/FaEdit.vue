@@ -26,13 +26,9 @@ export default {
   methods: {
     changeValue() {
       if (this.value === "email") {
-        console.log("Email Existe");
         this.$emit("change-value", { inputEmail: false });
-        // this.$emit("change-value", { inputEmail: this.input.inputEmail });
       } else {
-        console.log("Nom Existe");
         this.$emit("change-value", { inputNom: false });
-        // this.$emit("change-value", { inputNom: this.input.inputNom });
       }
     },
   },

@@ -25,16 +25,10 @@ export default {
   props: ["input", "value"],
   methods: {
     changeValue() {
-      // console.log(this.test);
-
       if (this.value === "email") {
-        console.log("Email Existe");
         this.$emit("change-value", { inputEmail: true });
-        // this.$emit("change-value", { inputEmail: this.input.inputEmail });
       } else {
-        console.log("Nom Existe");
         this.$emit("change-value", { inputNom: true });
-        // this.$emit("change-value", { inputNom: this.input.inputNom });
       }
     },
   },

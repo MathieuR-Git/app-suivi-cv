@@ -24,7 +24,7 @@ export default {
     Dashboard,
     Header,
   },
-  created: function() {
+  beforeCreate: function() {
     if (!this.$store.state.tokenAlreadyChecked) {
       this.$store.dispatch("checkToken");
     }

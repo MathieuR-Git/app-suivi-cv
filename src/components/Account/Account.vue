@@ -13,13 +13,13 @@
                     @change-value="edit"
                     :input="{ inputNom: inputNom }"
                     value="nom"
-                    v-if="!inputNom"
+                    v-if="!inputNom && !saveNom"
                   />
                   <FaEdit
                     @change-value="edit"
                     :input="{ inputNom: inputNom }"
                     value="nom"
-                    v-else
+                    v-else-if="inputNom"
                   />
                 </div>
               </div>
@@ -46,10 +46,15 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-12 text-center" v-if="saveNom">
+              <div class="row" v-if="saveNom">
+                <div class="col-6 text-center">
                   <button class="btn btn-info" @click="save" value="nom">
                     <i class="fas fa-save"></i> Enregistrer la modification
+                  </button>
+                </div>
+                <div class="col-6 text-center">
+                  <button class="btn btn-danger" @click="cancel" value="nom">
+                    <i class="fas fa-ban"></i> Annuler la modification
                   </button>
                 </div>
               </div>
@@ -63,13 +68,13 @@
                     @change-value="edit"
                     :input="{ inputEmail: inputEmail }"
                     value="email"
-                    v-if="!inputEmail"
+                    v-if="!inputEmail && !saveEmail"
                   />
                   <FaEdit
                     @change-value="edit"
                     :input="{ inputEmail: inputEmail }"
                     value="email"
-                    v-else
+                    v-else-if="inputEmail"
                   />
                 </div>
               </div>
@@ -96,10 +101,15 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-12 text-center" v-if="saveEmail">
+              <div class="row" v-if="saveEmail">
+                <div class="col-6 text-center">
                   <button class="btn btn-info" @click="save" value="email">
                     <i class="fas fa-save"></i> Enregistrer la modification
+                  </button>
+                </div>
+                <div class="col-6 text-center">
+                  <button class="btn btn-danger" @click="cancel" value="email">
+                    <i class="fas fa-ban"></i> Annuler la modification
                   </button>
                 </div>
               </div>
@@ -112,6 +122,7 @@
 </template>
 
 <script>
+// import { mapGetters } from "vuex";
 import FaTimesCircle from "../../svg/FaTimesCircle";
 import FaEdit from "../../svg/FaEdit";
 export default {
@@ -133,20 +144,36 @@ export default {
   },
   methods: {
     setUser: function(user) {
-      this.user = user;
-      this.nom = user.nom;
-      this.email = user.email;
+      if (user) {
+        this.user = user;
+        this.nom = user.nom;
+        this.email = user.email;
+      }
     },
     edit(payload) {
       if (typeof payload.inputEmail === "boolean") {
         this.inputEmail = payload.inputEmail;
+        console.log("value inputEmail : ", this.inputEmail);
         if (this.inputEmail === false) {
-          this.$refs.email.focus();
+          this.$nextTick(() => this.$refs.email.focus());
+        } else {
+          console.log("inputEmail true");
+
+          if (this.user.email === this.email) {
+            this.saveEmail = false;
+          }
         }
       } else if (typeof payload.inputNom === "boolean") {
         this.inputNom = payload.inputNom;
+        console.log("value inputNom : ", this.inputEmail);
         if (this.inputNom === false) {
-          this.$refs.nom.focus();
+          this.$nextTick(() => this.$refs.nom.focus());
+        } else {
+          console.log("inputNom true");
+
+          if (this.user.nom === this.nom) {
+            this.saveNom = false;
+          }
         }
       }
     },
@@ -154,8 +181,27 @@ export default {
       event.preventDefault();
       console.log(event.target.value);
     },
+    cancel: function(event) {
+      event.preventDefault();
+      console.log(event.target.value);
+      switch (event.target.value) {
+        case "nom": {
+          this.inputNom = true;
+          this.saveNom = false;
+          this.nom = this.user.nom;
+          break;
+        }
+        case "email": {
+          this.email = this.user.email;
+          this.inputEmail = true;
+          this.saveEmail = false;
+          break;
+        }
+        default:
+          break;
+      }
+    },
     myChangeFunction: function(value) {
-      console.log(value);
       switch (value.target.id) {
         case "nom": {
           if (this.user.nom !== this.nom) {
@@ -174,18 +220,26 @@ export default {
           break;
         }
         default:
-          "";
+          break;
       }
     },
   },
-  watch: {},
-
+  computed: {
+    getUser() {
+      return this.$store.getters.user;
+    },
+  },
+  watch: {
+    getUser: {
+      deep: true,
+      handler: function(userStore) {
+        this.user = userStore;
+        this.nom = userStore.nom;
+        this.email = userStore.email;
+      },
+    },
+  },
   mounted() {
-    // if (!this.$store.state.tokenAlreadyChecked) {
-    //   this.$store.dispatch("checkToken");
-    //   return this.setUser(this.$store.state.user);
-    // }
-    //   return this.setUser(this.$store.state.user);
     return this.setUser(this.$store.getters.user);
   },
 };
@@ -249,10 +303,6 @@ tr:hover {
 
 .email {
   text-transform: none;
-}
-
-.email:focus {
-  background: red;
 }
 
 .info {

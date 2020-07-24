@@ -36,6 +36,21 @@ export default new Vuex.Store({
       state.status = "";
       state.token = "";
     },
+    user_values_change_request(state) {
+      state.status = "loading";
+    },
+    user_values_change_error(state) {
+      state.status = "error";
+    },
+    user_values_change_success(state) {
+      state.status = "success";
+    },
+    user_values_change_name(state, nom) {
+      state.user.nom = nom;
+    },
+    user_values_change_email(state, email) {
+      state.user.email = email;
+    },
   },
   actions: {
     login({ commit }, user) {
@@ -58,7 +73,7 @@ export default new Vuex.Store({
             // };
             Cookies.set("token", token);
 
-            axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
             commit("auth_success", token);
             commit("user_values", user);
 
@@ -80,7 +95,7 @@ export default new Vuex.Store({
             const token = resp.data.token;
             const user = resp.data.user;
             Cookies.set("token", token);
-            axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
             commit("auth_success", token);
             commit("user_values", user);
             resolve(resp);
@@ -104,7 +119,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         commit("auth_request");
         let token = Cookies.get("token");
-        axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         axios
           .post(process.env.VUE_APP_CHECK_TOKEN)
           .then((res) => {
@@ -118,6 +133,42 @@ export default new Vuex.Store({
             Cookies.remove("token");
             reject(err);
           });
+      });
+    },
+    editUser({ commit }, dataChanged) {
+      return new Promise((resolve, reject) => {
+        commit("user_values_change_request");
+        /*
+        DEFINE HEADER
+         */
+        let token = Cookies.get("token");
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+        if (dataChanged.nom) {
+          commit("user_values_change_name", dataChanged.nom);
+          axios
+            .post(process.env.VUE_APP_EDIT_USER + dataChanged.id, dataChanged)
+            .then((res) => {
+              commit("user_values_change_success", res);
+              resolve(res);
+            })
+            .catch((err) => {
+              commit("user_values_change_error", err);
+              reject(err);
+            });
+        } else if (dataChanged.email) {
+          commit("user_values_change_email", dataChanged.email);
+          axios
+            .post(process.env.VUE_APP_EDIT_USER + dataChanged.id, dataChanged)
+            .then((res) => {
+              commit("user_values_change_success", res);
+              resolve(res);
+            })
+            .catch((err) => {
+              commit("user_values_change_error", err);
+              reject(err);
+            });
+        }
       });
     },
   },
