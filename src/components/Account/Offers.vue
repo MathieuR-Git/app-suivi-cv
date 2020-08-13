@@ -1,10 +1,12 @@
 <template>
   <!-- <div class="row"> -->
   <div class="col-md-12">
-    <div class="card border-left-info shadow h-100 py-2">
+    <div class="card border-left-info shadow h-10 py-2">
       <div class="row">
         <div class="col-6 mb-n3 pt-2 ml-5">
-          <h3><u>Nombre d'offres postulées :</u> <span>XXX</span></h3>
+          <h3>
+            <u>Nombre d'offres postulées :</u> <span>{{ jobsLength }}</span>
+          </h3>
         </div>
 
         <div class="col mb-n3 pt-2 ml-5">
@@ -44,7 +46,10 @@
               >
                 Candidatures en attente :
                 <router-link
-                  :to="{ path: 'jobs', query: { filter: 'waiting' } }"
+                  :to="{
+                    path: 'jobs',
+                    query: { filter: 'waiting' },
+                  }"
                   class="badge badge-info badge-pill"
                   >{{ getWaitingJobs }}</router-link
                 >
@@ -93,7 +98,6 @@ export default {
       return this.$store.state.relances.length;
     },
     getSuccessJobs() {
-      console.log(this.$store.getters.success);
       return this.$store.getters.success;
     },
     getWaitingJobs() {
@@ -101,6 +105,9 @@ export default {
     },
     getRejectedJobs() {
       return this.$store.getters.rejected;
+    },
+    jobsLength() {
+      return this.$store.getters.jobs.length;
     },
   },
 };

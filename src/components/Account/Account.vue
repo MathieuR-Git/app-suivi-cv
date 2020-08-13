@@ -2,9 +2,9 @@
   ><section>
     <h2>Mon compte</h2>
     <hr class="solid" />
-    <article class="container">
+    <article class="container mt-5">
       <form>
-        <div class="row">
+        <div class="row ">
           <div class="col-md-6">
             <div class="card border-left-info shadow h-100 py-2">
               <div class="row">
@@ -118,20 +118,30 @@
           <OffersAccount />
         </div>
       </form>
+      <div class="row  btn-delete">
+        <div class="col-6">
+          <FaBack />
+        </div>
+        <div class="col-6 text-md-right ">
+          <button class="btn btn-danger btn-lg">Supprimer mon compte</button>
+        </div>
+      </div>
     </article>
   </section>
 </template>
 
 <script>
-// import { mapGetters } from "vuex";
 import FaTimesCircle from "../../svg/FaTimesCircle";
 import FaEdit from "../../svg/FaEdit";
+import FaBack from "../../svg/FaBack";
 import OffersAccount from "./Offers";
+
 export default {
   name: "Account",
   components: {
     FaTimesCircle,
     FaEdit,
+    FaBack,
     OffersAccount,
   },
   data() {
@@ -330,5 +340,14 @@ tr:hover {
 
 .info {
   color: #36b9cc;
+}
+
+.btn-delete {
+  margin-top: 8em;
+}
+.btn-delete > div > a {
+  /* padding-top: 50px; */
+  font-size: 30px;
+  color: black;
 }
 </style>

@@ -21,6 +21,7 @@ const routes = [
     // component: { home: Home },
     path: "/",
     meta: { requiresAuth: true },
+    props: true,
     children: [
       {
         path: "jobs",
@@ -32,16 +33,19 @@ const routes = [
         path: "account",
         name: "Account",
         component: Account,
+        props: true,
       },
       {
         path: "application",
         name: "Application",
         component: Application,
+        props: true,
       },
       {
         path: "relance",
         name: "Relance",
         component: Relance,
+        props: true,
       },
     ],
   },
