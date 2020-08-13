@@ -24,18 +24,23 @@ const routes = [
     children: [
       {
         path: "jobs",
+        name: "Jobs",
         component: Jobs,
+        props: true,
       },
       {
         path: "account",
+        name: "Account",
         component: Account,
       },
       {
         path: "application",
+        name: "Application",
         component: Application,
       },
       {
         path: "relance",
+        name: "Relance",
         component: Relance,
       },
     ],

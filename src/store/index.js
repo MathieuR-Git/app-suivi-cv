@@ -13,7 +13,21 @@ export default new Vuex.Store({
     token: Cookies.get("token"),
     status: "",
     lastTimeLogged: "",
-    candidatures: [],
+    candidatures: [
+      { idOffre: "1", dateCandidature: "2020-07-08", status: "accepté" },
+      { idOffre: "1", dateCandidature: "2020-07-08", status: "accepté" },
+      { idOffre: "1", dateCandidature: "2020-07-08", status: "en attente" },
+      { idOffre: "1", dateCandidature: "2020-07-08", status: "refusé" },
+      { idOffre: "1", dateCandidature: "2020-07-08", status: "en attente" },
+      { idOffre: "1", dateCandidature: "2020-07-08", status: "en attente" },
+      { idOffre: "1", dateCandidature: "2020-07-08", status: "accepté" },
+      { idOffre: "1", dateCandidature: "2020-07-08", status: "accepté" },
+      { idOffre: "1", dateCandidature: "2020-07-08", status: "refusé" },
+      { idOffre: "1", dateCandidature: "2020-07-08", status: "refusé" },
+      { idOffre: "1", dateCandidature: "2020-07-08", status: "refusé" },
+      { idOffre: "1", dateCandidature: "2020-07-08", status: "refusé" },
+      { idOffre: "1", dateCandidature: "2020-07-08", status: "refusé" },
+    ],
     relances: ["a"],
     error: {},
   },
@@ -138,7 +152,6 @@ export default new Vuex.Store({
          */
         let token = Cookies.get("token");
         axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
-        // axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
         if (dataChanged.nom) {
           commit("user_values_change_name", dataChanged.nom);
@@ -181,6 +194,21 @@ export default new Vuex.Store({
     authStatus: (state) => state.status,
     user: (state) => state.user,
     error: (state) => state.error,
+    success: (state) =>
+      state.candidatures.reduce(
+        (total, job) => (job.status === "accepté" ? total + 1 : total),
+        0
+      ),
+    waiting: (state) =>
+      state.candidatures.reduce(
+        (total, job) => (job.status === "en attente" ? total + 1 : total),
+        0
+      ),
+    rejected: (state) =>
+      state.candidatures.reduce(
+        (total, job) => (job.status === "refusé" ? total + 1 : total),
+        0
+      ),
   },
   modules: {},
 });

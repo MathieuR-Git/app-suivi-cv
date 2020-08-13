@@ -115,6 +115,7 @@
               </div>
             </div>
           </div>
+          <OffersAccount />
         </div>
       </form>
     </article>
@@ -125,11 +126,13 @@
 // import { mapGetters } from "vuex";
 import FaTimesCircle from "../../svg/FaTimesCircle";
 import FaEdit from "../../svg/FaEdit";
+import OffersAccount from "./Offers";
 export default {
   name: "Account",
   components: {
     FaTimesCircle,
     FaEdit,
+    OffersAccount,
   },
   data() {
     return {
