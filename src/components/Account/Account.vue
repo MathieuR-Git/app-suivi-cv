@@ -119,13 +119,19 @@
         </div>
       </form>
       <div class="row  btn-delete">
+        <div class="col-12 text-md-right ">
+          <button class="btn btn-danger btn-lg">Supprimer mon compte</button>
+        </div>
+      </div>
+      <FaBack />
+      <!-- <div class="row  btn-delete">
         <div class="col-6">
           <FaBack />
         </div>
         <div class="col-6 text-md-right ">
           <button class="btn btn-danger btn-lg">Supprimer mon compte</button>
         </div>
-      </div>
+      </div> -->
     </article>
   </section>
 </template>
@@ -279,20 +285,6 @@ export default {
 </script>
 
 <style scoped>
-section {
-  margin-left: 3vw;
-  margin-right: 1vw;
-  margin-top: 2vh;
-}
-
-hr.solid {
-  margin-left: 2vw;
-  height: 0;
-  margin-top: 0.5rem 0;
-  overflow: hidden;
-  border-top: 1px solid #01212c;
-}
-
 tr:hover {
   cursor: pointer;
 }

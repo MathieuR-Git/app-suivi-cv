@@ -9,8 +9,6 @@
       viewBox="0 0 39 36"
     >
       <g
-        id="Rectangle_15"
-        data-name="Rectangle 15"
         fill="#fff"
         stroke="#000"
         stroke-width="3"
@@ -19,8 +17,6 @@
         <rect x="1.5" y="1.5" width="33" height="33" rx="2.5" fill="none" />
       </g>
       <rect
-        id="Rectangle_16"
-        data-name="Rectangle 16"
         width="33"
         height="16"
         transform="translate(6 10)"
@@ -33,7 +29,7 @@
         transform="translate(7.919 -2)"
       />
     </svg>
-    <span> Retour</span>
+    <span>Retour</span>
   </a>
 </template>
 
@@ -44,15 +40,22 @@ export default {
 </script>
 
 <style scoped>
+a {
+  position: absolute;
+  bottom: 5vh;
+}
 a:hover {
   cursor: pointer;
+}
+a:hover > span {
+  text-decoration: underline;
 }
 svg {
   margin-top: -4px;
 }
 span {
-  margin-top: 5px;
-  font-size: 30px;
+  margin-left: 5px;
+  font-size: 29px;
   color: black;
 }
 </style>

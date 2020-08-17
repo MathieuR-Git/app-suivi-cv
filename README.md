@@ -6,3 +6,8 @@
 - notif de relance (10 a 14j apres)
 - onglet motif de refus
 - page de profil
+
+
+
+## A FAIRE
+- Refaire tout le CSS pr le responsive

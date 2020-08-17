@@ -4,7 +4,7 @@
     <div class="row">
       <Dashboard />
       <!-- <div class="col"><Dashboard /></div> -->
-      <div class="col-10">
+      <div class="col">
         <Header />
         <router-view />
       </div>
@@ -28,6 +28,7 @@ export default {
     if (!this.$store.state.tokenAlreadyChecked) {
       this.$store.dispatch("checkToken");
     }
+
   },
 };
 </script>

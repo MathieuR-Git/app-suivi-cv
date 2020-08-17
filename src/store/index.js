@@ -118,6 +118,9 @@ export default new Vuex.Store({
     user_values_change_email(state, email) {
       state.user.email = email;
     },
+    add_job(state, job) {
+      state.candidatures.push(job);
+    },
   },
   actions: {
     login({ commit }, user) {
@@ -173,6 +176,12 @@ export default new Vuex.Store({
         commit("logout");
         Cookies.remove("token");
         delete axios.defaults.headers.common["Authorization"];
+        resolve();
+      });
+    },
+    addJob({ commit }, job) {
+      return new Promise((resolve) => {
+        commit("add_job", job);
         resolve();
       });
     },

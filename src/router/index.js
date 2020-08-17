@@ -9,8 +9,8 @@ import Login from "../views/Login.vue";
  ********************************************/
 import Jobs from "@/components/Jobs/Jobs.vue";
 import Account from "@/components/Account/Account.vue";
-import Application from "@/components/Application/Application.vue";
 import Relance from "@/components/Relance/Relance.vue";
+import NewJob from "@/components/newJob/newJob.vue";
 import store from "../store";
 
 Vue.use(VueRouter);
@@ -35,17 +35,17 @@ const routes = [
         component: Account,
         props: true,
       },
-      {
-        path: "application",
-        name: "Application",
-        component: Application,
-        props: true,
-      },
+
       {
         path: "relance",
         name: "Relance",
         component: Relance,
         props: true,
+      },
+      {
+        path: "new",
+        name: "NewJob",
+        component: NewJob,
       },
     ],
   },

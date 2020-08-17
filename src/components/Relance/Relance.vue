@@ -36,46 +36,51 @@
         <!-- <pre >{{ infoModal.content }}</pre> -->
       </b-modal>
     </article>
+    <FaBack />
   </section>
 </template>
 
 <script>
+import FaBack from "../../svg/FaBack";
 export default {
   name: "Relance",
-  data: () => ({
-    fields: [
-      {
-        key: "poste",
-        sortable: true,
+  components: { FaBack },
+  data() {
+    return {
+      fields: [
+        {
+          key: "poste",
+          sortable: true,
+        },
+        {
+          key: "statut",
+          sortable: true,
+        },
+        {
+          key: "IDOffre",
+          label: "ID de l'offre",
+          sortable: true,
+        },
+        {
+          key: "nomEntreprise",
+          label: "Entreprise",
+          sortable: true,
+        },
+        {
+          key: "url",
+          label: "Lien",
+          sortable: false,
+        },
+      ],
+      items: [],
+      infoModal: {
+        id: "info-modal",
+        title: "",
+        content: "",
+        url: "",
       },
-      {
-        key: "statut",
-        sortable: true,
-      },
-      {
-        key: "IDOffre",
-        label: "ID de l'offre",
-        sortable: true,
-      },
-      {
-        key: "nomEntreprise",
-        label: "Entreprise",
-        sortable: true,
-      },
-      {
-        key: "url",
-        label: "Lien",
-        sortable: false,
-      },
-    ],
-    items: [],
-    infoModal: {
-      id: "info-modal",
-      title: "",
-      content: "",
-      url: "",
-    },
-  }),
+    };
+  },
   methods: {
     setItems(data) {
       this.items = data;
@@ -100,7 +105,6 @@ export default {
         window.open(this.infoModal.url);
       }
     },
- 
   },
   mounted() {
     return this.setItems(this.$store.getters.relances);

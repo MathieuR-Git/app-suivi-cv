@@ -1,5 +1,5 @@
 <template>
-  <aside class="col">
+  <aside class="col-2">
     <h2>Tableau de bord</h2>
     <div class="nav">
       <router-link to="/account" class="item-link"
@@ -8,7 +8,7 @@
       <router-link to="/jobs" class="item-link"
         ><i class="far fa-envelope-open"></i> Les candidatures</router-link
       >
-      <router-link to="/application" class="item-link">
+      <router-link to="/new" class="item-link">
         <PlusCircle />
         J'ai postulé</router-link
       >
