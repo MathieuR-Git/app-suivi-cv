@@ -24,12 +24,16 @@ export default {
     Dashboard,
     Header,
   },
-  beforeCreate: function() {
+  created: function() {
     if (!this.$store.state.tokenAlreadyChecked) {
       this.$store.dispatch("checkToken");
     }
-
   },
+  // beforeCreate: function() {
+  //   if (!this.$store.state.tokenAlreadyChecked) {
+  //     this.$store.dispatch("checkToken");
+  //   }
+  // },
 };
 </script>
 

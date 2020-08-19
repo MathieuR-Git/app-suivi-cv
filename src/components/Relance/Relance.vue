@@ -2,7 +2,7 @@
   <section>
     <h2>Mes relances à effectuer</h2>
     <hr class="solid" />
-    <article>
+    <article v-if="!loading">
       <b-table
         hover
         head-variant="light"
@@ -36,15 +36,17 @@
         <!-- <pre >{{ infoModal.content }}</pre> -->
       </b-modal>
     </article>
+    <Loader v-else />
     <FaBack />
   </section>
 </template>
 
 <script>
+import Loader from "../Loader/Loader";
 import FaBack from "../../svg/FaBack";
 export default {
   name: "Relance",
-  components: { FaBack },
+  components: { FaBack, Loader },
   data() {
     return {
       fields: [
@@ -79,6 +81,7 @@ export default {
         content: "",
         url: "",
       },
+      loading: false,
     };
   },
   methods: {
@@ -107,7 +110,35 @@ export default {
     },
   },
   mounted() {
+    this.loading = true;
     return this.setItems(this.$store.getters.relances);
+  },
+  computed: {
+    checkToken() {
+      return this.$store.getters.tokenChecked;
+    },
+  },
+  watch: {
+    checkToken: {
+      deep: true,
+      handler: function(value) {
+        if (value) {
+          this.setItems(this.$store.getters.relances);
+          this.loading = false;
+        }
+      },
+    },
+  },
+  beforeCreate: function() {
+    if (!this.$store.state.tokenAlreadyChecked) {
+      this.$store.dispatch("checkToken");
+      this.init();
+    } else {
+      this.loading = false;
+    }
+  },
+  beforeDestroy: function() {
+    this.checkToken();
   },
 };
 </script>

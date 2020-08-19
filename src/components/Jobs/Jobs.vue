@@ -35,7 +35,8 @@
         >
       </b-button-group>
     </div>
-    <article class="mt-3">
+
+    <article class="mt-3" v-if="!loading">
       <router-link to="new">
         <i
           class="fas fa-plus-circle fa-2x"
@@ -61,15 +62,17 @@
         ></b-pagination>
       </div>
     </article>
+    <Loader v-else />
     <FaBack />
   </section>
 </template>
 
 <script>
+import Loader from "../Loader/Loader";
 import FaBack from "../../svg/FaBack";
 export default {
   name: "Jobs",
-  components: { FaBack },
+  components: { FaBack, Loader },
   props: ["filter"],
   data() {
     return {
@@ -80,6 +83,7 @@ export default {
       totalRow: 1,
       perPage: 5,
       totalRows: 1,
+      loading: false,
     };
   },
   methods: {
@@ -130,12 +134,39 @@ export default {
       } else {
         this.filterChoice = "all";
       }
-      this.setItems(this.$store.getters.jobs);
       this.setFilter();
     },
   },
+  computed: {
+    checkToken() {
+      return this.$store.getters.tokenChecked;
+    },
+  },
+  watch: {
+    checkToken: {
+      deep: true,
+      handler: function(value) {
+        if (value) {
+          this.setItems(this.$store.getters.jobs);
+          this.loading = false;
+        }
+      },
+    },
+  },
   mounted() {
+    this.loading = true;
     this.init();
+  },
+  beforeCreate: function() {
+    if (!this.$store.getters.tokenChecked) {
+      this.$store.dispatch("checkToken");
+      this.init();
+    } else {
+      this.loading = false;
+    }
+  },
+  beforeDestroy: function() {
+    this.checkToken();
   },
 };
 </script>
@@ -209,4 +240,14 @@ article {
   background-color: purple !important;
   border: solid 1px purple !important;
 }
+/* .loading {
+  margin-top: 10%;
+}
+.loading > .circles-to-rhombuses-spinner {
+  margin: 0 auto;
+}
+.loading > p {
+  text-align: center;
+  font-size: 30px;
+} */
 </style>
