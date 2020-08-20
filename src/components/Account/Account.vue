@@ -2,7 +2,7 @@
   ><section>
     <h2>Mon compte</h2>
     <hr class="solid" />
-    <article class="container mt-5">
+    <article class="container mt-5" v-if="!loading">
       <form>
         <div class="row ">
           <div class="col-md-6">
@@ -124,19 +124,13 @@
         </div>
       </div>
       <FaBack />
-      <!-- <div class="row  btn-delete">
-        <div class="col-6">
-          <FaBack />
-        </div>
-        <div class="col-6 text-md-right ">
-          <button class="btn btn-danger btn-lg">Supprimer mon compte</button>
-        </div>
-      </div> -->
     </article>
+    <Loader v-else />
   </section>
 </template>
 
 <script>
+import Loader from "../Loader/Loader";
 import FaTimesCircle from "../../svg/FaTimesCircle";
 import FaEdit from "../../svg/FaEdit";
 import FaBack from "../../svg/FaBack";
@@ -149,6 +143,7 @@ export default {
     FaEdit,
     FaBack,
     OffersAccount,
+    Loader,
   },
   data() {
     return {
@@ -159,6 +154,7 @@ export default {
       inputEmail: true,
       saveNom: false,
       saveEmail: false,
+      loading: false,
     };
   },
   methods: {
@@ -167,6 +163,7 @@ export default {
         this.user = user;
         this.nom = user.nom;
         this.email = user.email;
+        this.loading = false;
       }
     },
     edit(payload) {
@@ -278,8 +275,20 @@ export default {
       },
     },
   },
+  // mounted() {
+  //   return this.setUser(this.$store.getters.user);
+  // },
   mounted() {
-    return this.setUser(this.$store.getters.user);
+    if (!this.$store.getters.tokenChecked) {
+      this.loading = true;
+      this.$store.dispatch("checkToken");
+      setTimeout(() => {
+        this.setUser(this.$store.getters.user);
+      }, 100);
+    } else {
+      this.loading = false;
+      this.setUser(this.$store.getters.user);
+    }
   },
 };
 </script>

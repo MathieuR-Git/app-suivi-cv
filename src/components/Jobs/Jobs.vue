@@ -91,6 +91,7 @@ export default {
       this.items = data;
       this.filtered = data;
       this.totalRows = data.length;
+      this.loading = false;
     },
     changeFilter(event) {
       this.filterChoice = event.target.value;
@@ -137,36 +138,18 @@ export default {
       this.setFilter();
     },
   },
-  computed: {
-    checkToken() {
-      return this.$store.getters.tokenChecked;
-    },
-  },
-  watch: {
-    checkToken: {
-      deep: true,
-      handler: function(value) {
-        if (value) {
-          this.setItems(this.$store.getters.jobs);
-          this.loading = false;
-        }
-      },
-    },
-  },
+
   mounted() {
-    this.loading = true;
-    this.init();
-  },
-  beforeCreate: function() {
     if (!this.$store.getters.tokenChecked) {
+      this.loading = true;
       this.$store.dispatch("checkToken");
-      this.init();
+      setTimeout(() => {
+        this.setItems(this.$store.getters.jobs);
+      }, 100);
     } else {
       this.loading = false;
+      this.setItems(this.$store.getters.jobs);
     }
-  },
-  beforeDestroy: function() {
-    this.checkToken();
   },
 };
 </script>

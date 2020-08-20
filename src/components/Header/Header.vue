@@ -16,7 +16,7 @@
               > </span
             >Relance</router-link
           >
-          <a class="disabled" v-else @click="info"
+          <a class="disabled" v-else 
             ><i class="far fa-bell-slash"></i>Aucune relance</a
           >
           <a class="nav-item off" @click="logout"
@@ -40,9 +40,6 @@ export default {
       this.$store.dispatch("logout").then(() => {
         this.$router.push("/login");
       });
-    },
-    info: function() {
-      console.log(this.$store.state);
     },
   },
   computed: {

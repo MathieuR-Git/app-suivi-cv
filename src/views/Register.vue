@@ -86,9 +86,9 @@ export default {
     register: function(e) {
       e.preventDefault();
       let data = {
-        name: this.name,
+        nom: this.name,
         email: this.email,
-        password: this.password,
+        motDePasse: this.password,
         delaiFixe: true,
       };
       this.$store

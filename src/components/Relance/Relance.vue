@@ -2,7 +2,7 @@
   <section>
     <h2>Mes relances à effectuer</h2>
     <hr class="solid" />
-    <article v-if="!loading">
+    <article class="container mt-5" v-if="!loading">
       <b-table
         hover
         head-variant="light"
@@ -87,6 +87,7 @@ export default {
   methods: {
     setItems(data) {
       this.items = data;
+      this.loading = false;
     },
     info(item) {
       // info(item, index, button) {
@@ -110,35 +111,16 @@ export default {
     },
   },
   mounted() {
-    this.loading = true;
-    return this.setItems(this.$store.getters.relances);
-  },
-  computed: {
-    checkToken() {
-      return this.$store.getters.tokenChecked;
-    },
-  },
-  watch: {
-    checkToken: {
-      deep: true,
-      handler: function(value) {
-        if (value) {
-          this.setItems(this.$store.getters.relances);
-          this.loading = false;
-        }
-      },
-    },
-  },
-  beforeCreate: function() {
-    if (!this.$store.state.tokenAlreadyChecked) {
+    if (!this.$store.getters.tokenChecked) {
+      this.loading = true;
       this.$store.dispatch("checkToken");
-      this.init();
+      setTimeout(() => {
+        this.setItems(this.$store.getters.relances);
+      }, 100);
     } else {
       this.loading = false;
+      this.setItems(this.$store.getters.relances);
     }
-  },
-  beforeDestroy: function() {
-    this.checkToken();
   },
 };
 </script>

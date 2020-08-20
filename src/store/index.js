@@ -197,10 +197,10 @@ export default new Vuex.Store({
           .post(process.env.VUE_APP_CHECK_TOKEN)
           .then((res) => {
             const user = res.data.user;
-            console.log(user);
+
             commit("auth_success", token);
             commit("user_values", user);
-            console.log(this.state);
+
             resolve(user);
           })
           .catch((err) => {
