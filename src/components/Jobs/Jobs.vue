@@ -47,11 +47,13 @@
         striped
         head-variant="light"
         hover
+        responsive=true
         show-empty
+        :fields="fields"
         :per-page="perPage"
         :current-page="currentPage"
         :items="filtered"
-        v-bond:on="click"
+        v-bind:on="click"
         :id="items.id"
         :click="info"
       >
@@ -81,15 +83,39 @@ export default {
     return {
       filterChoice: "",
       items: [],
+      itemsTab:[],
       filtered: [],
       currentPage: 1,
       totalRow: 1,
       perPage: 5,
       totalRows: 1,
       loading: false,
-      /*fields:[
-        {key:""}
-      ]*/
+      fields:[
+        {
+          key:"Offre.poste",
+          label :"Nom du poste",
+          sortable:true},
+        {
+          key:"Offre.nomEntreprise",
+          label:"Nom de l'entreprise",
+          sortable:true
+        },
+        {
+          key:"idOffre",
+          label:"Identifiant de l'offre",
+          sortable:true
+        },
+        {
+          key:"dateCandidature",
+          label:"Date de la candidature",
+          sortable:true
+        },{
+          key:"statut",
+          label:"Statut",
+          sortable:true
+        }
+
+      ]
     };
   },
   methods: {
@@ -97,6 +123,11 @@ export default {
       this.items = data;
       this.filtered = data;
       this.totalRows = data.length;
+      for(let item in this.items){
+        this.itemsTab.push({
+          poste:item.poste
+        })
+      }
       this.loading = false;
     },
     changeFilter(event) {
