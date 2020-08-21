@@ -58,12 +58,13 @@
         @row-clicked="info"
       >
         <template v-slot:cell(dateCandidature)="row">
-          {{
+          <!-- {{
             row.value
               .split("-")
               .reverse()
               .join("/")
-          }}
+          }} -->
+          {{ dateFormat(row.value) }}
         </template>
       </b-table>
 
@@ -179,6 +180,28 @@ export default {
     },
     info(event) {
       console.log("sur le @row-clicked, on récupère : ", event);
+    },
+    dateFormat(value) {
+      let dateFormat = value.split("-").reverse();
+      dateFormat[1] = this.getMonth(dateFormat[1]);
+      return dateFormat.join(" ");
+    },
+    getMonth(month) {
+      const monthNames = [
+        "Janvier",
+        "Février",
+        "Mars",
+        "Avril",
+        "Mai",
+        "Juin",
+        "Juillet",
+        "Août",
+        "Septembre",
+        "Octobre",
+        "Novembre",
+        "Décembre",
+      ];
+      return monthNames[parseInt(month)];
     },
   },
 
