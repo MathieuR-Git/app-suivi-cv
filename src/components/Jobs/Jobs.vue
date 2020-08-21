@@ -47,7 +47,7 @@
         striped
         head-variant="light"
         hover
-        responsive=true
+        responsive="true"
         show-empty
         :fields="fields"
         :per-page="perPage"
@@ -83,39 +83,40 @@ export default {
     return {
       filterChoice: "",
       items: [],
-      itemsTab:[],
+      itemsTab: [],
       filtered: [],
       currentPage: 1,
       totalRow: 1,
       perPage: 5,
       totalRows: 1,
       loading: false,
-      fields:[
+      fields: [
         {
-          key:"Offre.poste",
-          label :"Nom du poste",
-          sortable:true},
-        {
-          key:"Offre.nomEntreprise",
-          label:"Nom de l'entreprise",
-          sortable:true
+          key: "Offre.poste",
+          label: "Nom du poste",
+          sortable: true,
         },
         {
-          key:"idOffre",
-          label:"Identifiant de l'offre",
-          sortable:true
+          key: "Offre.nomEntreprise",
+          label: "Nom de l'entreprise",
+          sortable: true,
         },
         {
-          key:"dateCandidature",
-          label:"Date de la candidature",
-          sortable:true
-        },{
-          key:"statut",
-          label:"Statut",
-          sortable:true
-        }
-
-      ]
+          key: "idOffre",
+          label: "Identifiant de l'offre",
+          sortable: true,
+        },
+        {
+          key: "dateCandidature",
+          label: "Date de la candidature",
+          sortable: true,
+        },
+        {
+          key: "statut",
+          label: "Statut",
+          sortable: true,
+        },
+      ],
     };
   },
   methods: {
@@ -123,10 +124,10 @@ export default {
       this.items = data;
       this.filtered = data;
       this.totalRows = data.length;
-      for(let item in this.items){
+      for (let item in this.items) {
         this.itemsTab.push({
-          poste:item.poste
-        })
+          poste: item.poste,
+        });
       }
       this.loading = false;
     },
@@ -187,6 +188,18 @@ export default {
       this.loading = false;
       this.setItems(this.$store.getters.jobs);
     }
+  },
+  computed: {
+    jobs() {
+      return this.$store.getters.jobs;
+    },
+  },
+  watch: {
+    jobs(newValue, oldValue) {
+      if (newValue.length !== oldValue.length) {
+        this.items = newValue;
+      }
+    },
   },
 };
 </script>

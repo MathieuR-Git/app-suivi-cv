@@ -12,75 +12,8 @@ export default new Vuex.Store({
     token: Cookies.get("token"),
     status: "",
     lastTimeLogged: "",
-    candidatures: [
-      // {
-      //   id: "97eb48793051342b86ef121e022c037e",
-      //   poste: "Chef des ventes",
-      //   nomEntreprise: "Lejeune",
-      //   IDOffre: "1a71489e9da93bb69fe1d0a84d471627",
-      //   url: "http://www.rolland.fr/",
-      //   statut: "Refusé",
-      // },
-      // {
-      //   id: "170730306317311d81b9d16c7aa2b1fe",
-      //   poste: "Plasticien",
-      //   nomEntreprise: "Lefebvre SA",
-      //   url: "https://www.marin.com/commodilaboriosamautetutetmollitiaautnulla",
-      //   IDOffre: "1a71489e9da93bb69fe1d0a84d471628",
-      //   statut: "Refusé",
-      // },
-      // {
-      //   id: "742fef19d5d431c2b79475b1289444ce",
-      //   poste: "Testeur informatique",
-      //   nomEntreprise: "Fleury Gilbert SARL",
-      //   url: "http://www.michaud.fr/optiominusetautincidunt",
-      //   IDOffre: "1a71489e9da93bb69fe1d0a84d471629",
-      //   statut: "En attente",
-      // },
-      // {
-      //   id: "c6510dff479433b5a38ed0c8b6726466",
-      //   poste: "Jointeur de placage",
-      //   nomEntreprise: "Lefort",
-      //   url: "http://mendes.fr/utilloofficiisutdolorin",
-      //   IDOffre: "1a71489e9da93bb69fe1d0a84d471621",
-      //   statut: "Accepté",
-      // },
-      // {
-      //   id: "76cbd453440a35ce897c7d1b5c75a758",
-      //   poste: "Conseiller relooking",
-      //   nomEntreprise: "Lecoq S.A.",
-      //   url: "http://www.leblanc.org/inexpeditaquidemsuscipitquisquamvoluptas",
-      //   IDOffre: "1a71489e9da93bb69fe1d0a84d471111",
-      //   statut: "Refusé",
-      // },
-      // {
-      //   id: "e8c25b092da530769aecd00dadbf0a5b",
-      //   poste: "Médiateur judiciaire",
-      //   nomEntreprise: "Couturier",
-      //   url:
-      //     "http://blondel.fr/consecteturexcepturiutaperiamodiomaximerecusandae.html",
-      //   IDOffre: "1a71489e9da93bb69fe1d0a84d471",
-      //   statut: "En attente",
-      // },
-      // {
-      //   id: "d6e28e24f24437f2a05460a92cf34171",
-      //   poste: "Vendeur en épicerie",
-      //   nomEntreprise: "Coste",
-      //   url: "https://guyot.com/quiasequiconsequaturrerumasperioresab.html",
-      //   IDOffre: "4c71489e9da93bb69fe1d0a84d471627",
-      //   statut: "Accepté",
-      // },
-    ],
-    relances: [
-      // {
-      //   id: "97eb48793051342b86ef121e022c037e",
-      //   poste: "Chef des ventes",
-      //   nomEntreprise: "Lejeune",
-      //   IDOffre: "1a71489e9da93bb69fe1d0a84d471627",
-      //   url: "http://www.rolland.fr/",
-      //   statut: "refusé",
-      // },
-    ],
+    candidatures: [],
+    relances: [],
     error: {},
   },
   mutations: {
@@ -191,12 +124,12 @@ export default new Vuex.Store({
           .post(process.env.VUE_APP_CREATE_JOB, job)
           .then((resp) => {
             commit("auth_success", token);
-            commit("add_job", job);
+            commit("add_job", resp.data);
             resolve(resp);
           })
           .catch((err) => {
             commit("auth_error", err);
-            // Cookies.remove("token");
+            Cookies.remove("token");
             reject(err);
           });
       });
