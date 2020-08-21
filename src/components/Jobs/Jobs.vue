@@ -83,7 +83,6 @@ export default {
     return {
       filterChoice: "",
       items: [],
-      itemsTab: [],
       filtered: [],
       currentPage: 1,
       totalRow: 1,
@@ -124,11 +123,6 @@ export default {
       this.items = data;
       this.filtered = data;
       this.totalRows = data.length;
-      for (let item in this.items) {
-        this.itemsTab.push({
-          poste: item.poste,
-        });
-      }
       this.loading = false;
     },
     changeFilter(event) {
