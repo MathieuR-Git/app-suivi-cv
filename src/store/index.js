@@ -183,9 +183,22 @@ export default new Vuex.Store({
       });
     },
     addJob({ commit }, job) {
-      return new Promise((resolve) => {
-        commit("add_job", job);
-        resolve();
+      return new Promise((resolve,reject) => {
+        commit("auth_request");
+        axios
+        .post(process.env.VUE_APP_CREATE_JOB, job)
+        .then((resp)=>{
+          const token =Cookies.get(token);
+          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+          commit("auth_success", token);
+          commit("add_job", job);
+          resolve(resp);
+        })
+        .catch((err)=>{
+          commit("auth_error", err);
+            Cookies.remove("token");
+            reject(err);
+        })
       });
     },
     checkToken({ commit }) {
@@ -260,7 +273,6 @@ export default new Vuex.Store({
     authStatus: (state) => state.status,
     user: (state) => {
       delete state.user.motdepasse;
-      delete state.user.id;
       return state.user;
     },
     error: (state) => state.error,
