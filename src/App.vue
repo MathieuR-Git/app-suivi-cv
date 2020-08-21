@@ -59,4 +59,24 @@ hr.solid {
   overflow: hidden;
   border-top: 1px solid #01212c;
 }
+@media (min-width: 1920px) and (max-width: 1920px) {
+  section {
+    width: 1500px !important;
+  }
+}
+@media (min-width: 1600px) and (max-width: 1919px) {
+  section {
+    width: 1300px !important;
+  }
+  article.container.mt-5 {
+    min-width: 1000px !important;
+    width: 1200px !important;
+  }
+  article form {
+    width: 1250px !important;
+  }
+  article div.btn-delete {
+    width: 1250px !important;
+  }
+}
 </style>

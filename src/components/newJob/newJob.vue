@@ -43,7 +43,7 @@
                       class="h5 mb-0 ml-5 font-weight-bold text-gray-800 col-12 date-picker"
                       :locale="locale"
                       v-bind="labels"
-                      today-button=true
+                      today-button
                       label-today-button="Aujourd'hui"
                     ></b-form-datepicker>
                     <div
@@ -184,9 +184,9 @@ export default {
         statut: "En attente",
         url: this.urlLink,
         idOffre: this.idOffer,
-        dureeRelance:this.relanceTime,
-        dateCandidature:this.date,
-        idUtilisateur:this.$store.getters.user.id
+        dureeRelance: this.relanceTime,
+        dateCandidature: this.date,
+        idUtilisateur: this.$store.getters.user.id,
       };
       this.$store
         .dispatch("addJob", data)

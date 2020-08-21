@@ -183,22 +183,22 @@ export default new Vuex.Store({
       });
     },
     addJob({ commit }, job) {
-      return new Promise((resolve,reject) => {
+      return new Promise((resolve, reject) => {
         commit("auth_request");
+        const token = Cookies.get("token");
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         axios
-        .post(process.env.VUE_APP_CREATE_JOB, job)
-        .then((resp)=>{
-          const token =Cookies.get(token);
-          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-          commit("auth_success", token);
-          commit("add_job", job);
-          resolve(resp);
-        })
-        .catch((err)=>{
-          commit("auth_error", err);
-            Cookies.remove("token");
+          .post(process.env.VUE_APP_CREATE_JOB, job)
+          .then((resp) => {
+            commit("auth_success", token);
+            commit("add_job", job);
+            resolve(resp);
+          })
+          .catch((err) => {
+            commit("auth_error", err);
+            // Cookies.remove("token");
             reject(err);
-        })
+          });
       });
     },
     checkToken({ commit }) {
