@@ -11,7 +11,8 @@
         v-bind:on="click"
         :id="items.id"
         :primary-key="items.id"
-        :click="info"
+        @row-clicked="info"
+        empty-text="Il n'y a aucune valeur à afficher..."
       >
         <template v-slot:cell(poste)="row" class="mr-1">
           <p v-on:click="info(row.item, $event.target)" class="td">
