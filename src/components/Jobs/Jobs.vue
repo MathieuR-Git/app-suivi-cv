@@ -51,6 +51,9 @@
         :per-page="perPage"
         :current-page="currentPage"
         :items="filtered"
+        v-bond:on="click"
+        :id="items.id"
+        :click="info"
       >
       </b-table>
 
@@ -84,6 +87,9 @@ export default {
       perPage: 5,
       totalRows: 1,
       loading: false,
+      /*fields:[
+        {key:""}
+      ]*/
     };
   },
   methods: {
