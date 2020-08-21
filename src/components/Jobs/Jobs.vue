@@ -53,10 +53,18 @@
         :per-page="perPage"
         :current-page="currentPage"
         :items="filtered"
-        v-bind:on="click"
         :id="items.id"
-        :click="info"
+        empty-text="Il n'y a aucune valeur à afficher..."
+        @row-clicked="info"
       >
+        <template v-slot:cell(dateCandidature)="row">
+          {{
+            row.value
+              .split("-")
+              .reverse()
+              .join("/")
+          }}
+        </template>
       </b-table>
 
       <div class="d-flex justify-content-center">
@@ -86,7 +94,7 @@ export default {
       filtered: [],
       currentPage: 1,
       totalRow: 1,
-      perPage: 5,
+      perPage: 10,
       totalRows: 1,
       loading: false,
       fields: [
@@ -168,6 +176,9 @@ export default {
         this.filterChoice = "all";
       }
       this.setFilter();
+    },
+    info(event) {
+      console.log("sur le @row-clicked, on récupère : ", event);
     },
   },
 
