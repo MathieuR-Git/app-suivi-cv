@@ -36,10 +36,10 @@
               <button class="btn btn-valid" disabled v-else>
                 Valider
               </button>
+              <p class="text-center">
+                Créer un compte <router-link to="/register">ici</router-link>
+              </p>
             </div>
-            <p class="text-center">
-              Créer un compte <router-link to="/register">ici</router-link>
-            </p>
           </form>
         </div>
       </div>
@@ -100,10 +100,6 @@ h2 {
 .wrapper--w960 {
   min-height: 635px !important;
   max-width: 960px;
-}
-
-.wrapper--w680 {
-  max-width: 680px;
 }
 
 /* ==========================================================================
@@ -241,38 +237,6 @@ input {
   padding-bottom: 88px;
 }
 
-@media (max-width: 767px) {
-  .wrapper {
-    border-radius: none !important;
-    height: 100vh !important;
-  }
-  .wrapper--w960 {
-    border-radius: none !important;
-  }
-  .card {
-    border-radius: none;
-  }
-  .card-2 {
-    display: block;
-    height: 100vh;
-  }
-  .card-2 .card-heading {
-    display: none;
-  }
-  .card-2 .card-body {
-    display: block;
-    padding: 60px 50px;
-    border-radius: none;
-  }
-  #login {
-    padding-top: 0 !important;
-    background: #01212c;
-  }
-  #login h1 {
-    display: none;
-  }
-}
-
 #login {
   padding-top: 4vh;
   background: #01212c;
@@ -290,5 +254,50 @@ p.text-center {
 }
 p.text-center a {
   padding: 0 !important;
+}
+
+@media (max-width: 767px) {
+  .wrapper {
+    border-radius: none !important;
+    min-height: 90vh !important;
+    height: 90vh !important;
+  }
+  .wrapper--w960 {
+    border-radius: none !important;
+  }
+  .card {
+    border-radius: 0px;
+  }
+  .card-2 {
+    display: block;
+    height: 90vh;
+  }
+  .card-2 .card-body {
+    display: block;
+    padding: 60px 50px;
+    border-radius: none;
+  }
+  #login {
+    padding-top: 0 !important;
+    background: #01212c;
+  }
+  #login h1 {
+    height: 9vh;
+    display: block;
+    padding-top: 1vh !important;
+    margin-bottom: 1vh !important;
+  }
+  form {
+    padding-top: 16.6vh !important;
+  }
+  .p-t-30 {
+    margin-top: 10vh !important;
+  }
+  /* .p-t-30 {
+    margin-top: 28.3vh !important;
+  } */
+  h2 {
+    margin-bottom: 15px !important;
+  }
 }
 </style>

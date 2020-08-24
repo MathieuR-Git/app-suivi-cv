@@ -289,32 +289,50 @@ input {
 @media (max-width: 767px) {
   .wrapper {
     border-radius: none !important;
-    height: 100vh !important;
+    max-height: 90vh !important;
+    min-height: 90vh !important;
   }
   .wrapper--w960 {
     border-radius: none !important;
+    /* min-height: 91vh !important;
+    max-height: 91vh !important; */
   }
   .card {
-    border-radius: none;
+    border-radius: 0px;
   }
   .card-2 {
     display: block;
-    height: 100vh;
+    height: 90vh;
   }
   .card-2 .card-heading {
     display: none;
   }
   .card-2 .card-body {
     display: block;
-    padding: 60px 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 60px;
+    padding-bottom: 0px !important;
     border-radius: none;
   }
-  #login {
+  #register {
     padding-top: 0 !important;
     background: #01212c;
   }
   #register h1 {
-    display: none;
+    height: 9vh;
+    display: block;
+    padding-top: 1vh !important;
+    margin-bottom: 1vh !important;
+  }
+  form {
+    padding-top: 5vh !important;
+  }
+  .p-t-30 {
+    margin-top: 2vh !important;
+  }
+  h2 {
+    margin-bottom: 15px !important;
   }
 }
 
