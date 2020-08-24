@@ -44,7 +44,7 @@
 
 <script>
 import Loader from "../Loader/Loader";
-import FaBack from "../../svg/FaBack";
+import FaBack from "../../Icons/FaBack";
 export default {
   name: "Relance",
   components: { FaBack, Loader },
