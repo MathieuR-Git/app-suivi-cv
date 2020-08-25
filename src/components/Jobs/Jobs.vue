@@ -47,8 +47,9 @@
         striped
         head-variant="light"
         hover
-        responsive="true"
+        responsive
         show-empty
+        v-bind:on="click"
         :fields="fields"
         :per-page="perPage"
         :current-page="currentPage"
@@ -58,15 +59,10 @@
         @row-clicked="info"
       >
         <template v-slot:cell(dateCandidature)="row">
-          <!-- {{
-            row.value
-              .split("-")
-              .reverse()
-              .join("/")
-          }} -->
           {{ dateFormat(row.value) }}
         </template>
       </b-table>
+      
 
       <div class="d-flex justify-content-center">
         <b-pagination
@@ -86,7 +82,7 @@ import Loader from "../Loader/Loader";
 import FaBack from "../../Icons/FaBack";
 export default {
   name: "Jobs",
-  components: { FaBack, Loader },
+  components: { FaBack, Loader},
   props: ["filter"],
   data() {
     return {
@@ -138,6 +134,9 @@ export default {
       this.filterChoice = event.target.value;
       this.setFilter();
     },
+    click(event){
+      console.log(event)
+    },
     setFilter() {
       switch (this.filterChoice) {
         case "all": {
@@ -180,6 +179,7 @@ export default {
     },
     info(event) {
       console.log("sur le @row-clicked, on récupère : ", event);
+      this.$router.push({name:'JobInfo',params:{job:event}})
     },
     dateFormat(value) {
       let dateFormat = value.split("-").reverse();

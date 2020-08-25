@@ -142,14 +142,14 @@ export default new Vuex.Store({
         axios
           .post(process.env.VUE_APP_CHECK_TOKEN)
           .then((user) => {
-            commit("logout");
             commit("auth_success", token);
-            commit("user_values", user);
+            commit("user_values", user.data.user);
             resolve(user);
           })
           .catch((err) => {
             commit("auth_error", err);
             Cookies.remove("token");
+            commit("logout");
             reject(err);
           });
       });

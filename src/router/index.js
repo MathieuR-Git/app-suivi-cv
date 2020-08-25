@@ -12,6 +12,7 @@ import Account from "@/components/Account/Account.vue";
 import Relance from "@/components/Relance/Relance.vue";
 import NewJob from "@/components/newJob/newJob.vue";
 import store from "../store";
+import JobInfo from "@/components/Jobs/JobInfo.vue";
 
 Vue.use(VueRouter);
 
@@ -46,6 +47,12 @@ const routes = [
         path: "new",
         name: "NewJob",
         component: NewJob,
+      },
+      {
+        path:"jobInfo",
+        name:"JobInfo",
+        component:JobInfo,
+        props:true,
       },
     ],
   },
