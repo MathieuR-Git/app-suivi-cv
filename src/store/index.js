@@ -141,13 +141,33 @@ export default new Vuex.Store({
         axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
         axios
           .post(process.env.VUE_APP_CHECK_TOKEN)
-          .then((res) => {
-            const user = res.data.user;
-
+          .then((user) => {
+            commit("logout");
             commit("auth_success", token);
             commit("user_values", user);
-
             resolve(user);
+          })
+          .catch((err) => {
+            commit("auth_error", err);
+            Cookies.remove("token");
+            reject(err);
+          });
+      });
+    },
+    deleteAccount({ commit }, id) {
+      return new Promise((resolve, reject) => {
+        commit("auth_request");
+        let token = Cookies.get("token");
+        axios.defaults.headers.common = {
+          Authorization: `Bearer ${token}`,
+        };
+        axios
+          .delete(process.env.VUE_APP_DELETE_ACCOUNT`${id}`)
+          .then(() => {
+            commit("logout");
+            Cookies.remove("token");
+            delete axios.defaults.headers.common["Authorization"];
+            resolve();
           })
           .catch((err) => {
             commit("auth_error", err);

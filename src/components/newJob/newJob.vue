@@ -147,7 +147,7 @@
 </template>
 
 <script>
-import FaBack from "../../svg/FaBack";
+import FaBack from "../../Icons/FaBack";
 export default {
   name: "newJob",
   components: { FaBack },

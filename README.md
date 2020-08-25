@@ -11,3 +11,7 @@
 
 ## A FAIRE
 - Refaire tout le CSS pr le responsive
+
+
+## Responsive fait :
+- Register + login

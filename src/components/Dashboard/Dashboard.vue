@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import PlusCircle from "../../svg/PlusCircle";
+import PlusCircle from "../../Icons/PlusCircle";
 export default {
   name: "Dashboard",
   components: {

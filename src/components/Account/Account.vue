@@ -120,20 +120,50 @@
       </form>
       <div class="row  btn-delete">
         <div class="col-12 text-md-right ">
-          <button class="btn btn-danger btn-lg">Supprimer mon compte</button>
+          <!-- <button class="btn btn-danger btn-lg" @click="showModalWindow"> -->
+          <b-button
+            v-b-modal.modal-1
+            class="btn btn-danger btn-lg"
+            @click="showModal = true"
+          >
+            Supprimer mon compte
+          </b-button>
         </div>
       </div>
       <FaBack />
     </article>
     <Loader v-else />
+    <b-modal size="lg" id="modal-1" centered hide-footer v-if="showModal">
+      <!-- <template v-slot:modal-header> -->
+      <template v-slot:modal-header style="text-align:center;">
+        <h5>Suppression du compte</h5>
+        <a @click="close"><i class="fas fa-times fa-lg"></i></a>
+        <!-- <b-icon icon="X" font-scale="2" variant="danger"> </b-icon> -->
+      </template>
+      <div style="text-align:center; height:20vh; padding-top: 5vh;">
+        <b class="my-4">Souhaitez-vous vraiment supprimer votre compte ?</b>
+        <p><i class="my-4">Aucun retour en arrière ne sera possible.</i></p>
+      </div>
+      <footer class="footer">
+        <b-button variant="success" @click="deleteAccount">
+          Confirmer
+        </b-button>
+        <b-button variant="danger" @click="close">
+          Annuler
+        </b-button>
+        <!-- <b-button variant="danger" @click="showModal = false">
+          Annuler
+        </b-button> -->
+      </footer>
+    </b-modal>
   </section>
 </template>
 
 <script>
 import Loader from "../Loader/Loader";
-import FaTimesCircle from "../../svg/FaTimesCircle";
-import FaEdit from "../../svg/FaEdit";
-import FaBack from "../../svg/FaBack";
+import FaTimesCircle from "../../Icons/FaTimesCircle";
+import FaEdit from "../../Icons/FaEdit";
+import FaBack from "../../Icons/FaBack";
 import OffersAccount from "./Offers";
 
 export default {
@@ -155,6 +185,7 @@ export default {
       saveNom: false,
       saveEmail: false,
       loading: false,
+      showModal: false,
     };
   },
   methods: {
@@ -165,6 +196,16 @@ export default {
         this.email = user.email;
         this.loading = false;
       }
+    },
+
+    close: function(e) {
+      e.preventDefault();
+      this.showModal = false;
+    },
+    deleteAccount: function() {
+      this.$store.dispatch("deleteAccount").then(() => {
+        this.$router.push("/register");
+      });
     },
     edit(payload) {
       if (typeof payload.inputEmail === "boolean") {
@@ -350,5 +391,27 @@ tr:hover {
   /* padding-top: 50px; */
   font-size: 30px;
   color: black;
+}
+
+.modal-header h5 {
+  width: 100%;
+  text-align: center;
+}
+.modal-header a {
+  padding-right: 0;
+}
+.fa-times {
+  cursor: pointer;
+  color: red;
+}
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  border-top: 1px solid #dee2e6;
+  border-bottom-right-radius: calc(0.3rem - 1px);
+  border-bottom-left-radius: calc(0.3rem - 1px);
 }
 </style>
