@@ -72,9 +72,11 @@
                       class="h5 ml-3 align-middle font-weight-bold text-gray-800 col-11 date-picker"
                       :locale="locale"
                       v-bind="labels"
+                      id="dateCandidature"
                       today-button
-                      :readonly="!editable"
+                      :disabled="!editable"
                       label-today-button="Aujourd'hui"
+                      @input="changeDateRelance()"
                     ></b-form-datepicker>
                   </div>
                 </div>
@@ -90,7 +92,7 @@
                     <div
                       class="text-xd font-weight-bold text-info text-uppercase mb-1"
                     >
-                     Relance tous les (durée en jour)
+                     Relance tous les (durée en jours)
                     </div>
                     <input
                       type="text"
@@ -98,6 +100,7 @@
                       v-model="job.dureeRelance"
                       :disabled="!editable || delaiFixe"
                       id="dureeRelance"
+                      @selected="changeDateRelance()"
                     />
                     
                   </div>
@@ -122,7 +125,7 @@
                       :locale="locale"
                       v-bind="labels"
                       today-button
-                      :readonly=true
+                      :disabled=true
                       label-today-button="Aujourd'hui"
                     ></b-form-datepicker>
                   </div>
@@ -221,7 +224,8 @@
                 this.$bvToast.toast('Vous pouvez maintenant éditer toutes les caractéristiques de cette candidature.',{
                     autoHideDelay:3000,
                     variant:"info",
-                    width:"55%"
+                    width:"55%",
+                    title:"Modification de la candidature"
                 });
                 console.log(this.editable,this.job)
             },
@@ -242,11 +246,17 @@
                     break;
               }
         },
+        changeDateRelance(){
+          let dateCandidature=new Date(this.job.dateCandidature);
+          dateCandidature.setDate(dateCandidature.getDate()+this.job.dureeRelance);
+          this.job.dateRelance=dateCandidature;
+        }
         },
         mounted(){
           this.setSelected();
-          this.delaiFixe= this.$store.getters.user.delaiFixe;
-          console.log(this.delaiFixe);
+          let dureeDelaiFixe= this.$store.getters.user.dureeDelaiFixe;
+          if (dureeDelaiFixe!= undefined && dureeDelaiFixe!= null)
+         this.delaiFixe=true;
         },
     }
 </script>
