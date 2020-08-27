@@ -95,12 +95,14 @@
                      Relance tous les (durée en jours)
                     </div>
                     <input
-                      type="text"
+                      type="number"
+                      max="28"
+                      min="7"
                       class="h5 mb-0 ml-3 col-11 font-weight-bold text-gray-800 input"
                       v-model="job.dureeRelance"
                       :disabled="!editable || delaiFixe"
                       id="dureeRelance"
-                      @selected="changeDateRelance()"
+                      @change="changeDateRelance()"
                     />
                     
                   </div>
@@ -248,8 +250,14 @@
         },
         changeDateRelance(){
           let dateCandidature=new Date(this.job.dateCandidature);
-          dateCandidature.setDate(dateCandidature.getDate()+this.job.dureeRelance);
-          this.job.dateRelance=dateCandidature;
+           if(this.job.dureeRelance<7){
+            this.job.dureeRelance=7;
+          }
+          else if(this.job.dureeRelance>28){
+            this.job.dureeRelance=28;
+          }
+          dateCandidature.setDate(dateCandidature.getDate()+parseInt(this.job.dureeRelance));
+          this.job.dateRelance=dateCandidature
         }
         },
         mounted(){
