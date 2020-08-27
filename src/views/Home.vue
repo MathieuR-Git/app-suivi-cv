@@ -3,6 +3,7 @@
     <!-- <div class="container-fluid"> -->
     <div class="row">
       <Dashboard />
+      <!-- <Burger /> -->
       <!-- <div class="col"><Dashboard /></div> -->
       <div class="col">
         <Header />
@@ -16,12 +17,14 @@
 // @ is an alias to /src
 
 import Dashboard from "@/components/Dashboard/Dashboard.vue";
+// import Burger from "@/components/Dashboard/BurgerMenu.vue";
 import Header from "@/components/Header/Header.vue";
 
 export default {
   name: "Home",
   components: {
     Dashboard,
+    // Burger,
     Header,
   },
   created: function() {

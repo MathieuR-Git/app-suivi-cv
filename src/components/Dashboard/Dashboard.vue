@@ -27,6 +27,7 @@
 
 <script>
 import PlusCircle from "../../Icons/PlusCircle";
+
 export default {
   name: "Dashboard",
   components: {
@@ -54,14 +55,6 @@ h2 {
   display: grid;
   margin-top: 20vh;
 }
-.item-link {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  height: 4em;
-  font-size: 1.4em;
-}
 .item-link:hover {
   background: rgb(24, 30, 56);
 }
@@ -76,10 +69,33 @@ svg {
   right: -7px !important;
   font-size: 45px !important;
 }
-/* .fa-layers-counter {
-  right: -8px !important;
-  font-size: 45px !important;
-  padding-left: 25px;
-  padding-right: 25px;
-} */
+@media (min-width: 1026px) {
+  .item-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    height: 4em;
+    font-size: 1.4em;
+  }
+}
+@media (min-width: 768px) and (max-width: 1025px) {
+  h2 {
+    font-size: 24px;
+  }
+  .item-link {
+    display: flex;
+    align-items: center;
+    color: white;
+    height: 3em;
+    font-size: 1em;
+    margin-left: -10px;
+  }
+}
+
+@media (max-width: 767px) {
+  aside {
+    display: none;
+  }
+}
 </style>
