@@ -3,7 +3,7 @@
   <div class="col-md-12">
     <div class="card border-left-info shadow h-10 py-2">
       <div class="row">
-        <div class="col-6 mb-n3 pt-2 ml-5">
+        <div class="col mb-n3 pt-2 ml-5">
           <h3>
             <u>Nombre d'offres postulées :</u> <span>{{ jobsLength }}</span>
           </h3>
@@ -11,21 +11,23 @@
 
         <div class="col mb-n3 pt-2 ml-5">
           <h3>
-            <u>Délai de relance :</u>
-            <span>
-              <input type="radio" id="two" value="flexible" v-model="delai" />
-              <label for="two">Flexible</label>
-            </span>
-            <span>
-              <input type="radio" id="one" value="fixe" v-model="delai" />
-              <label for="one">Fixe</label>
-              <select v-if="delai === 'fixe'" v-model="timeDelai">
-                <option value="7">7 jours</option>
-                <option value="10">10 jours</option>
-                <option value="12">12 jours</option>
-                <option value="14">14 jours</option>
-              </select>
-            </span>
+            <form class="delai">
+              <u>Délai de relance :</u>
+              <span>
+                <input type="radio" id="two" value="flexible" v-model="delai" />
+                <label for="two">Flexible</label>
+              </span>
+              <span>
+                <input type="radio" id="one" value="fixe" v-model="delai" />
+                <label for="one">Fixe</label>
+                <select v-if="delai === 'fixe'" v-model="timeDelai">
+                  <option value="7">7 jours</option>
+                  <option value="10">10 jours</option>
+                  <option value="12">12 jours</option>
+                  <option value="14">14 jours</option>
+                </select>
+              </span>
+            </form>
           </h3>
         </div>
         <div class="col-12">
@@ -157,5 +159,21 @@ option:not(:checked) {
 
 .badge:hover {
   transform: scale(1.1);
+}
+
+@media (max-width: 1453px) {
+  form div.row div.row {
+    display: inline-block;
+  }
+  form div.row div.col-md-12 div.card div.row div.col {
+    max-width: 62vw;
+  }
+  form div.row div.col-md-12 div.card div.row div.col:first-of-type {
+    margin-bottom: 4vh !important;
+  }
+
+  .delai span {
+    padding: 6px;
+  }
 }
 </style>

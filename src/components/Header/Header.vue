@@ -7,17 +7,21 @@
           class="navbar-nav d-flex justify-content-end"
           v-if="window.width <= 767"
         >
-          <router-link to="/account" class="nav-item"
+          <router-link to="/account" class="nav-item responsive-item"
             ><i class="fas fa-user-circle"></i> Mon Compte</router-link
           >
-          <router-link to="/jobs" class="nav-item"
+          <router-link to="/jobs" class="nav-item responsive-item"
             ><i class="far fa-envelope-open"></i> Les candidatures</router-link
           >
-          <router-link to="/new" class="nav-item">
+          <router-link to="/new" class="nav-item responsive-item">
             <PlusCircle :color="{ color: 'black' }" />
             J'ai postulé</router-link
           >
-          <router-link to="/relance" class="nav-item" v-if="relanceLength">
+          <router-link
+            to="/relance"
+            class="nav-item responsive-item"
+            v-if="relanceLength"
+          >
             <span class="fa-layers fa-fw">
               <i class="fas fa-bell"></i>
               <span class="fa-layers-counter" style="background:Tomato">
@@ -26,9 +30,9 @@
             >Relance</router-link
           >
           <a class="disabled" v-else
-            ><i class="far fa-bell-slash"></i>Aucune relance</a
+            ><i class="far fa-bell-slash responsive-item"></i>Aucune relance</a
           >
-          <a class="nav-item off" @click="logout"
+          <a class="nav-item off responsive-item" @click="logout"
             ><i class="fas fa-power-off off"></i> Me déconnecter</a
           >
         </ul>
@@ -127,7 +131,6 @@ export default {
 }
 
 a.disabled {
-  /* pointer-events: none; */
   cursor: default;
 }
 
@@ -167,9 +170,23 @@ a {
   right: -7px !important;
   font-size: 45px !important;
 }
-.justify-content-end {
+ul.justify-content-end {
   justify-content: flex-end !important;
-  padding-left: 25vw !important;
+  padding-left: 9vw !important;
+}
+
+.responsive-item {
+  transition: 0.2s;
+}
+
+.responsive-item:hover {
+  border-radius: 5px;
+  background: #01212c;
+  color: white;
+}
+
+a.router-link-active svg g path.a {
+  stroke: white;
 }
 
 @media (min-width: 768px) {

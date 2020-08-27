@@ -2,7 +2,7 @@
   <section>
     <h2>Créer une candidature</h2>
     <hr class="solid" />
-    <article class="container mt-5">
+    <article class="container-fluid mt-5">
       <form>
         <div class="row mb-5">
           <div class="col-md-6">
@@ -197,9 +197,9 @@ export default {
 </script>
 
 <style scoped>
-.container {
+/* .container {
   min-width: 1500px !important;
-}
+} */
 .date-picker {
   text-align: center;
   border-color: -internal-light-dark(rgb(118, 118, 118), rgb(195, 195, 195));

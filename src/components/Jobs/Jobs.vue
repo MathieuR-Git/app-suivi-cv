@@ -36,8 +36,8 @@
       </b-button-group>
     </div>
 
-    <article class="mt-3" v-if="!loading">
-      <router-link to="new">
+    <article class=" mt-3" v-if="!loading">
+      <router-link to="new" class="newJob">
         <i
           class="fas fa-plus-circle fa-2x"
           title="Créer une nouvelle candidature"
@@ -45,6 +45,7 @@
       </router-link>
       <b-table
         striped
+        bordered
         head-variant="light"
         hover
         responsive
@@ -58,11 +59,18 @@
         empty-text="Il n'y a aucune valeur à afficher..."
         @row-clicked="info"
       >
+        <template v-slot:table-colgroup="scope">
+          <col
+            v-for="field in scope.fields"
+            :key="field.key"
+            :style="{ width: field.key === 'idOffre' ? '10px' : '180px' }"
+            :id="field.key"
+          />
+        </template>
         <template v-slot:cell(dateCandidature)="row">
           {{ dateFormat(row.value) }}
         </template>
       </b-table>
-      
 
       <div class="d-flex justify-content-center">
         <b-pagination
@@ -82,7 +90,7 @@ import Loader from "../Loader/Loader";
 import FaBack from "../../Icons/FaBack";
 export default {
   name: "Jobs",
-  components: { FaBack, Loader},
+  components: { FaBack, Loader },
   props: ["filter"],
   data() {
     return {
@@ -109,6 +117,7 @@ export default {
           key: "idOffre",
           label: "Identifiant de l'offre",
           sortable: true,
+          class: "idOffreMDR",
         },
         {
           key: "dateCandidature",
@@ -134,8 +143,8 @@ export default {
       this.filterChoice = event.target.value;
       this.setFilter();
     },
-    click(event){
-      console.log(event)
+    click(event) {
+      console.log(event);
     },
     setFilter() {
       switch (this.filterChoice) {
@@ -179,7 +188,7 @@ export default {
     },
     info(event) {
       console.log("sur le @row-clicked, on récupère : ", event);
-      this.$router.push({name:'JobInfo',params:{job:event}})
+      this.$router.push({ name: "JobInfo", params: { job: event } });
     },
     dateFormat(value) {
       let dateFormat = value.split("-").reverse();
@@ -188,6 +197,7 @@ export default {
     },
     getMonth(month) {
       const monthNames = [
+        "Décembre",
         "Janvier",
         "Février",
         "Mars",
@@ -199,7 +209,6 @@ export default {
         "Septembre",
         "Octobre",
         "Novembre",
-        "Décembre",
       ];
       return monthNames[parseInt(month)];
     },
@@ -208,27 +217,19 @@ export default {
   mounted() {
     if (!this.$store.getters.tokenChecked) {
       this.loading = true;
-      this.$store.dispatch("checkToken");
+      this.$store.dispatch("checkToken").then(() =>
+        setTimeout(() => {
+          this.setItems(this.$store.getters.jobs);
+        }, 750)
+      );
+    } else {
+      this.loading = false;
       setTimeout(() => {
         this.setItems(this.$store.getters.jobs);
       }, 100);
-    } else {
-      this.loading = false;
-      this.setItems(this.$store.getters.jobs);
     }
   },
-  computed: {
-    jobs() {
-      return this.$store.getters.jobs;
-    },
-  },
-  watch: {
-    jobs(newValue, oldValue) {
-      if (newValue.length !== oldValue.length) {
-        this.items = newValue;
-      }
-    },
-  },
+
 };
 </script>
 
@@ -301,14 +302,13 @@ article {
   background-color: purple !important;
   border: solid 1px purple !important;
 }
-/* .loading {
-  margin-top: 10%;
+.table-responsive {
+  position: relative;
+  z-index: 1 !important;
 }
-.loading > .circles-to-rhombuses-spinner {
-  margin: 0 auto;
+.newJob {
+  position: relative;
+  z-index: 999 !important;
 }
-.loading > p {
-  text-align: center;
-  font-size: 30px;
-} */
+
 </style>

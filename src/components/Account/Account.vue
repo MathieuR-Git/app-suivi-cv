@@ -2,7 +2,7 @@
   ><section>
     <h2>Mon compte</h2>
     <hr class="solid" />
-    <article class="container mt-5" v-if="!loading">
+    <article class="container-fluid mt-5" v-if="!loading">
       <form>
         <div class="row ">
           <div class="col-md-6">
@@ -33,7 +33,7 @@
                     </div>
                     <input
                       type="text"
-                      class="h5 mb-0 ml-5 font-weight-bold text-gray-800 input"
+                      class="h5 mb-0 ml-3 col-11 font-weight-bold text-gray-800 input"
                       v-model="nom"
                       :disabled="inputNom"
                       @input="myChangeFunction"
@@ -88,7 +88,7 @@
                     </div>
                     <input
                       type="text"
-                      class="h5 mb-0 ml-5 font-weight-bold text-gray-800 input email"
+                      class="h5 mb-0 ml-3 col-11 font-weight-bold text-gray-800 input email"
                       v-model="email"
                       :disabled="inputEmail"
                       @input="myChangeFunction"
@@ -177,9 +177,9 @@ export default {
   },
   data() {
     return {
-      user: "",
-      nom: "",
-      email: "",
+      user: undefined,
+      nom: undefined,
+      email: undefined,
       inputNom: true,
       inputEmail: true,
       saveNom: false,
@@ -301,34 +301,20 @@ export default {
       }
     },
   },
-  computed: {
-    getUser() {
-      return this.$store.getters.user;
-    },
-  },
-  watch: {
-    getUser: {
-      deep: true,
-      handler: function(userStore) {
-        this.user = userStore;
-        this.nom = userStore.nom;
-        this.email = userStore.email;
-      },
-    },
-  },
-  // mounted() {
-  //   return this.setUser(this.$store.getters.user);
-  // },
   mounted() {
     if (!this.$store.getters.tokenChecked) {
       this.loading = true;
-      this.$store.dispatch("checkToken");
+      this.$store.dispatch("checkToken").then(() =>
+        setTimeout(() => {
+          this.setUser(this.$store.getters.user);
+        }, 500)
+      );
+
+    } else {
+      this.loading = false;
       setTimeout(() => {
         this.setUser(this.$store.getters.user);
       }, 100);
-    } else {
-      this.loading = false;
-      this.setUser(this.$store.getters.user);
     }
   },
 };
@@ -337,10 +323,6 @@ export default {
 <style scoped>
 tr:hover {
   cursor: pointer;
-}
-
-.container {
-  min-width: 1500px !important;
 }
 
 .edit {
@@ -366,15 +348,12 @@ tr:hover {
 }
 
 .input {
-  width: 25vw;
+  /* width: 25vw; */
   border: none;
   text-align: center;
   text-transform: capitalize;
 }
 
-/* .input[disabled] {
-  background: #e6e6e6;
-} */
 
 .email {
   text-transform: none;
@@ -413,5 +392,24 @@ tr:hover {
   border-top: 1px solid #dee2e6;
   border-bottom-right-radius: calc(0.3rem - 1px);
   border-bottom-left-radius: calc(0.3rem - 1px);
+}
+@media (max-width: 767px) {
+  .fa-user,
+  .fa-at {
+    display: none;
+  }
+  .input {
+    width: inherit;
+    margin-left: 0 !important;
+  }
+  form div.row:first-of-type div.col-md-6:first-of-type {
+    margin-bottom: 3vh;
+  }
+  .btn-delete {
+    margin: 2em;
+  }
+  div.btn-delete div.text-md-right {
+    text-align: center;
+  }
 }
 </style>

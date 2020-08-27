@@ -2,7 +2,7 @@
   <section>
     <h2>Mes relances à effectuer</h2>
     <hr class="solid" />
-    <article class="container mt-5" v-if="!loading">
+    <article class="container-fluid mt-5" v-if="!loading">
       <b-table
         hover
         head-variant="light"

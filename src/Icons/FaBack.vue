@@ -8,19 +8,15 @@
       height="30"
       viewBox="0 0 39 36"
     >
-      <g
-        fill="#fff"
-        stroke="#000"
-        stroke-width="3"
-      >
+      <g fill="transparent" stroke="#000" stroke-width="3">
         <rect width="36" height="36" rx="4" stroke="none" />
         <rect x="1.5" y="1.5" width="33" height="33" rx="2.5" fill="none" />
       </g>
       <rect
-        width="33"
+        width="30"
         height="16"
         transform="translate(6 10)"
-        fill="#fff"
+        fill="transparent"
       />
       <path
         id="Icon_awesome-long-arrow-alt-left"
@@ -36,6 +32,25 @@
 <script>
 export default {
   name: "FaBack",
+  data: () => ({
+    window: {
+      width: 0,
+      height: 0,
+    },
+  }),
+  created() {
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize();
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.handleResize);
+  },
+  methods: {
+    handleResize() {
+      this.window.width = window.innerWidth;
+      this.window.height = window.innerHeight;
+    },
+  },
 };
 </script>
 
@@ -53,9 +68,24 @@ a:hover > span {
 svg {
   margin-top: -4px;
 }
+
 span {
   margin-left: 5px;
   font-size: 29px;
   color: black;
+}
+g {
+  background: transparent !important;
+}
+
+@media (max-width: 767px) {
+  a {
+    position: absolute;
+    bottom: 5vh;
+    left: 3vw;
+  }
+  span {
+    display: none;
+  }
 }
 </style>

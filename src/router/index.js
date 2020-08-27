@@ -11,8 +11,8 @@ import Jobs from "@/components/Jobs/Jobs.vue";
 import Account from "@/components/Account/Account.vue";
 import Relance from "@/components/Relance/Relance.vue";
 import NewJob from "@/components/newJob/newJob.vue";
+import JobInfo from "@/components/JobInfo/JobInfo.vue";
 import store from "../store";
-import JobInfo from "@/components/Jobs/JobInfo.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +21,7 @@ const routes = [
     component: Home,
     // component: { home: Home },
     path: "/",
+    redirect: "/jobs",
     meta: { requiresAuth: true },
     props: true,
     children: [
@@ -49,10 +50,10 @@ const routes = [
         component: NewJob,
       },
       {
-        path:"jobInfo",
-        name:"JobInfo",
-        component:JobInfo,
-        props:true,
+        path: "jobInfo",
+        name: "JobInfo",
+        component: JobInfo,
+        props: true,
       },
     ],
   },
@@ -63,6 +64,10 @@ const routes = [
   {
     component: Login,
     path: "/login",
+  },
+  {
+    path: "*",
+    component: Home,
   },
 ];
 
